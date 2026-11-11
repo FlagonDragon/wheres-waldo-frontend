@@ -1,12 +1,13 @@
-import "../styles/styles.css"
+import "../styles/styles.css";
 import { useState, useRef } from 'react';
-import squaresImg from '../assets/colorSquares.jpg'
+import squaresImg from '../assets/colorSquares.jpg';
+import Options from './Options';
 
 function Home() {
   const [coordsX, setCoordsX] = useState(0);
   const [coordsY, setCoordsY] = useState(0); 
 
-  const sqrElement = useRef();
+  const rectangle = useRef();
 
   function transformEle(e) {
     console.log(e.clientX, e.clientY);
@@ -23,12 +24,17 @@ function Home() {
   {/* <img onClick={transformEle} src={squaresImg} height='500'> */}
 
     <p>Click anywhere to move the ball</p>
+    
     <div 
       id="foo" 
-      className="square" 
-      ref={sqrElement}
-      style={{transform: `translateX(${coordsX-25}px) translateY(${coordsY-25}px)`}}
-    ></div>
+      className="rectangle" 
+      ref={rectangle}
+      style={{transform: `translateX(${coordsX+15}px) translateY(${coordsY-25}px)`}}
+    >
+      <div className="square"></div>
+      <Options></Options>
+
+    </div>
   
   {/* </img> */}
   </div>
