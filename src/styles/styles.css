@@ -2,18 +2,24 @@
   box-sizing: border-box;
 }
 
+.imgDiv {
+  position: relative;
+  height: 500px;
+  width: 745px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 5px solid black;
+  margin: 50px;
+}
+
 .rectangle {
+  position: absolute;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   border-radius: 0px;
   width: 100px;
   height: 50px;
-  background: none;
-  /* border: 4px dashed darkblue; */
-  position: absolute;
-  top: 0;
-  left: 0;
   transition: transform 0s;
   color: white;
   gap: 5px;
@@ -54,11 +60,4 @@
 .optionsList li:hover {
   cursor: pointer;
   background: rgb(47, 46, 46);
-}
-
-.imgDiv {
-  height: 500px;
-  width: 800px;
-  background-repeat: no-repeat;
-  background-size: contain;
 }
