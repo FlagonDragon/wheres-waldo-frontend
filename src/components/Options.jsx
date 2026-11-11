@@ -2,7 +2,7 @@
 
 const characters = ['char1', 'char2', 'char3'];
 
-function Options() {
+function Options({ handleClick }) {
 
   return (
     
@@ -14,7 +14,10 @@ function Options() {
 
         return (
       
-        <li key={char}>{char}</li>
+        <li 
+          key={char}
+          onClick={handleClick}
+        >{char}</li>
 
         )
 

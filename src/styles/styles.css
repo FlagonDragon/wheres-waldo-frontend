@@ -61,3 +61,7 @@
   cursor: pointer;
   background: rgb(47, 46, 46);
 }
+
+.invisible {
+  display: none;
+}
