@@ -68,7 +68,9 @@ function Home() {
 
     const result = await fetchCheck(char, coordX, coordY);
 
-    console.log(result);
+    console.log(result.message);
+
+    alert(result.message);
     
   }
 
