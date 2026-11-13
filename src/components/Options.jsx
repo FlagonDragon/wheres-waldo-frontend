@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 
-const characters = ['char1', 'char2', 'char3'];
+const characters = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
 
 function Options({ handleClick }) {
 
@@ -16,7 +16,7 @@ function Options({ handleClick }) {
       
         <li 
           key={char}
-          onClick={handleClick}
+          onClick={(e) => handleClick(e, char)}
         >{char}</li>
 
         )
