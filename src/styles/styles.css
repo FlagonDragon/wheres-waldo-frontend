@@ -38,12 +38,13 @@
   grid-row: 1 / 2;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: stretch;
   align-items: start;
   width: auto;
   height: auto;
   border: 3px solid black;
   background-color: rgb(99, 97, 97);
+  text-wrap: nowrap;
 }
 
 .optionsList {
@@ -53,7 +54,6 @@
 }
 
 .optionsList li {
-  width: max-content;
   padding: 5px 10px;
 }
 
