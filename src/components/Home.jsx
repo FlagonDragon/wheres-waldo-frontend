@@ -15,20 +15,9 @@ async function fetchCheck(targetName, coordX, coordY) {
       headers: {'Content-type': 'application/json'},
     })
 
-    console.log(targetName, coordX, coordY);
-    
-    // const response = await fetch(`https://wheres-waldo-5irt.onrender.com/check-option`, {
-    //     method: "POST",
-    //     body: JSON.stringify({ pictureTitle: 'colorSquares', targetName: 'Pink Square', coordX: 0, coordY: 0 }),
-    //     headers: {'Content-type': 'application/json'},
-    // })
+    // console.log(targetName, coordX, coordY);
 
     let postsData = await response.json();
-
-    // console.log(postsData);
-    // console.log(response.headers);
-    // console.log(response.headers.map);
-    // console.log(...response.headers);
 
     return postsData;
 
@@ -46,6 +35,7 @@ function Home() {
   const [active, setActive] = useState(false);
   const [options, setOptions] = useState(startingOptions);
   const [checkMarks, setCheckMarks] = useState([]);
+  const [message, setMessage] = useState('TEST MESSAGE');
 
   // const rectangle = useRef();
 
@@ -77,71 +67,84 @@ function Home() {
     if (result.message == 'Right on the mark!') {
       addCheckMark();
       deleteOption(option);
+      
+      if (options[1] == undefined) {
+
+        setMessage('You won!');
+        
+        return;
+
+      }
+
     }
 
-    // alert(result.message);
+    setMessage(result.message);
     
   }
 
   function addCheckMark() {
     let newArr = [...checkMarks]
     newArr.push([coordX, coordY])
-    console.log(Array.isArray(newArr));
+    // console.log(Array.isArray(newArr));
     setCheckMarks(newArr);
   }
 
   function deleteOption(option) {
     let newArr = [...options]
     newArr.splice(newArr.indexOf(option), 1);
-    console.log(newArr);
+    // console.log(newArr);
     setOptions(newArr);
   }
 
   return (
-  <>
-  <div>Coord X: {coordX}</div>
-  <div>Coord Y: {coordY}</div>
-  <div>Active: {active ? 'true' : 'false'}</div>
-  <div>Checkmarks: {checkMarks}</div>
+  <div className="container">
 
-  <div 
-    onClick={popUpTarget} 
-    style={{backgroundImage: `url("${squaresImg}")`}} 
-    className='imgDiv'
-  > 
+    <div className="stats">
+      <div>Coord X: {coordX}</div>
+      <div>Coord Y: {coordY}</div>
+      <div>Options: {options}</div>
+      <div>Active: {active ? 'true' : 'false'}</div>
+      <div>Checkmarks: {checkMarks}</div>
+    </div>
 
-    {checkMarks.map(checkMark => {
+    <div className="msgBox">{message}</div>
 
-      console.log(checkMark);
-      console.log(checkMark[0]);
-      console.log(checkMark[1]);
+    <div 
+      className='imgDiv'
+      onClick={popUpTarget} 
+      style={{backgroundImage: `url("${squaresImg}")`}} 
+    > 
 
-      return(
+      {checkMarks.map(checkMark => {
+
+        return(
+        
+        <div 
+          key={checkMark}
+          className='checkMark'
+          style={{transform: `translateX(${checkMark[0]-25}px) translateY(${checkMark[1]-25}px)`}}
+        ></div>
+
+        )
+        
+      })
+
+      }
       
       <div 
-        className='checkMark'
-        style={{transform: `translateX(${checkMark[0]-25}px) translateY(${checkMark[1]-25}px)`}}
-      ></div>
+        className={active ? 'rectangle' : 'rectangle invisible'}
+        // ref={rectangle}
+        style={{transform: `translateX(${coordX-25}px) translateY(${coordY-25}px)`}}
+      >
+        
+        <div className="square"></div>
+        <OptionsDiv optionsArr={options} handleClick={selectOption}></OptionsDiv>
 
-      )
-      
-    })
-
-    }
+      </div>
     
-    <div 
-      className={active ? 'rectangle' : 'rectangle invisible'}
-      // ref={rectangle}
-      style={{transform: `translateX(${coordX-25}px) translateY(${coordY-25}px)`}}
-    >
-      
-      <div className="square"></div>
-      <OptionsDiv optionsArr={options} handleClick={selectOption}></OptionsDiv>
-
     </div>
-  
+
   </div>
-  </>
   )
 
 }
