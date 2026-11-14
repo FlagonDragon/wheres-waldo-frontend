@@ -1,16 +1,18 @@
 import "../styles/styles.css";
 import { useState } from 'react';
 import squaresImg from '../assets/colorSquares.jpg';
-import Options from './Options';
+import OptionsDiv from './OptionsDiv';
+
+const startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
 
 async function fetchCheck(targetName, coordX, coordY) {
 
     try {
 
     const response = await fetch(`https://wheres-waldo-5irt.onrender.com/check-option`, {
-        method: "POST",
-        body: JSON.stringify({ pictureTitle: 'colorSquares', targetName: targetName, coordX: coordX, coordY: coordY }),
-        headers: {'Content-type': 'application/json'},
+      method: "POST",
+      body: JSON.stringify({ pictureTitle: 'colorSquares', targetName: targetName, coordX: coordX, coordY: coordY }),
+      headers: {'Content-type': 'application/json'},
     })
 
     console.log(targetName, coordX, coordY);
@@ -42,6 +44,7 @@ function Home() {
   const [coordX, setCoordX] = useState(0);
   const [coordY, setCoordY] = useState(0);
   const [active, setActive] = useState(false);
+  const [options, setOptions] = useState(startingOptions);
   const [checkMarks, setCheckMarks] = useState([]);
 
   // const rectangle = useRef();
@@ -61,18 +64,19 @@ function Home() {
 
   }
 
-  async function selectOption(e, char) {
+  async function selectOption(e, option) {
     
     setActive(false);
 
     e.stopPropagation();
 
-    const result = await fetchCheck(char, coordX, coordY);
+    const result = await fetchCheck(option, coordX, coordY);
 
     console.log(result.message);
 
     if (result.message == 'Right on the mark!') {
       addCheckMark();
+      deleteOption(option);
     }
 
     // alert(result.message);
@@ -82,9 +86,15 @@ function Home() {
   function addCheckMark() {
     let newArr = [...checkMarks]
     newArr.push([coordX, coordY])
-    console.log(newArr);
     console.log(Array.isArray(newArr));
     setCheckMarks(newArr);
+  }
+
+  function deleteOption(option) {
+    let newArr = [...options]
+    newArr.splice(newArr.indexOf(option), 1);
+    console.log(newArr);
+    setOptions(newArr);
   }
 
   return (
@@ -126,7 +136,7 @@ function Home() {
     >
       
       <div className="square"></div>
-      <Options handleClick={selectOption}></Options>
+      <OptionsDiv optionsArr={options} handleClick={selectOption}></OptionsDiv>
 
     </div>
   

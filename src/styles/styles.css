@@ -74,4 +74,5 @@
   background-color: greenyellow;
   opacity: 80%;
   border-radius: 25px;
+  pointer-events: none;
 }
