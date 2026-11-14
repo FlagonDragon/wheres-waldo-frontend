@@ -65,3 +65,13 @@
 .invisible {
   display: none;
 }
+
+.checkMark{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  /* border: 3px solid greenyellow; */
+  background-color: greenyellow;
+  opacity: 80%;
+  border-radius: 25px;
+}

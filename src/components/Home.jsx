@@ -42,6 +42,7 @@ function Home() {
   const [coordX, setCoordX] = useState(0);
   const [coordY, setCoordY] = useState(0);
   const [active, setActive] = useState(false);
+  const [checkMarks, setCheckMarks] = useState([]);
 
   // const rectangle = useRef();
 
@@ -70,19 +71,55 @@ function Home() {
 
     console.log(result.message);
 
-    alert(result.message);
+    if (result.message == 'Right on the mark!') {
+      addCheckMark();
+    }
+
+    // alert(result.message);
     
   }
 
+  function addCheckMark() {
+    let newArr = [...checkMarks]
+    newArr.push([coordX, coordY])
+    console.log(newArr);
+    console.log(Array.isArray(newArr));
+    setCheckMarks(newArr);
+  }
+
   return (
+  <>
+  <div>Coord X: {coordX}</div>
+  <div>Coord Y: {coordY}</div>
+  <div>Active: {active ? 'true' : 'false'}</div>
+  <div>Checkmarks: {checkMarks}</div>
+
   <div 
     onClick={popUpTarget} 
     style={{backgroundImage: `url("${squaresImg}")`}} 
     className='imgDiv'
   > 
+
+    {checkMarks.map(checkMark => {
+
+      console.log(checkMark);
+      console.log(checkMark[0]);
+      console.log(checkMark[1]);
+
+      return(
+      
+      <div 
+        className='checkMark'
+        style={{transform: `translateX(${checkMark[0]-25}px) translateY(${checkMark[1]-25}px)`}}
+      ></div>
+
+      )
+      
+    })
+
+    }
     
     <div 
-      id="foo" 
       className={active ? 'rectangle' : 'rectangle invisible'}
       // ref={rectangle}
       style={{transform: `translateX(${coordX-25}px) translateY(${coordY-25}px)`}}
@@ -94,6 +131,7 @@ function Home() {
     </div>
   
   </div>
+  </>
   )
 
 }
