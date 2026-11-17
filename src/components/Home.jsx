@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import squaresImg from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 
@@ -35,9 +35,41 @@ function Home() {
   const [active, setActive] = useState(false);
   const [options, setOptions] = useState(startingOptions);
   const [checkMarks, setCheckMarks] = useState([]);
-  const [message, setMessage] = useState('TEST MESSAGE');
+  const [message, setMessage] = useState('Find and select a target');
+  const [gameOver, setGameOver] = useState(false);
+  const [time, setTime] = useState(0);
 
-  // const rectangle = useRef();
+  useEffect(() => {
+
+    async function updateTime() {
+
+      if (gameOver == false) {
+        
+        let newTime = time+1;
+
+        setTimeout(() => setTime(newTime), 1000);
+
+      } else { 
+        return 
+      }
+
+
+    }
+
+    updateTime();
+    
+  }, [time, gameOver])
+
+  function restartGame() {
+    setCoordX(0);
+    setCoordY(0);
+    setActive(false);
+    setOptions(startingOptions);
+    setCheckMarks([]);
+    setMessage('Find and select a target');
+    setGameOver(false);
+    setTime(0);
+  }
 
   function popUpTarget(e) {
     setActive(true);
@@ -70,6 +102,7 @@ function Home() {
       
       if (options[1] == undefined) {
 
+        setGameOver(true);
         setMessage('You won!');
         
         return;
@@ -96,6 +129,15 @@ function Home() {
     setOptions(newArr);
   }
 
+  // function updateTime(newTime) {
+
+  //   console.log(time);
+  //   console.log(newTime);
+
+  //   setTime(newTime);
+      
+  // }
+
   return (
   <div className="container">
 
@@ -105,6 +147,7 @@ function Home() {
       <div>Options: {options}</div>
       <div>Active: {active ? 'true' : 'false'}</div>
       <div>Checkmarks: {checkMarks}</div>
+      <div>Time: {time} seconds</div>
     </div>
 
     <div className="msgBox">{message}</div>
@@ -143,6 +186,11 @@ function Home() {
       </div>
     
     </div>
+
+    <button 
+      className="restartBtn"
+      onClick={restartGame}
+    >Restart game</button>
 
   </div>
   )
