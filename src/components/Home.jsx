@@ -2,6 +2,7 @@ import "../styles/styles.css";
 import { useEffect, useState } from 'react';
 import squaresImg from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
+import Scoreboard from "./Scoreboard";
 
 const startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
 
@@ -129,15 +130,6 @@ function Home() {
     setOptions(newArr);
   }
 
-  // function updateTime(newTime) {
-
-  //   console.log(time);
-  //   console.log(newTime);
-
-  //   setTime(newTime);
-      
-  // }
-
   return (
   <div className="container">
 
@@ -149,6 +141,8 @@ function Home() {
       <div>Checkmarks: {checkMarks}</div>
       <div>Time: {time} seconds</div>
     </div>
+
+    <Scoreboard time={time} gameOver={gameOver}></Scoreboard>
 
     <div className="msgBox">{message}</div>
 
