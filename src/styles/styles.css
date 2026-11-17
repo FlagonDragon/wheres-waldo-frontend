@@ -26,6 +26,10 @@
   margin-top: 100px;
 }
 
+.ImgDiv.gameOver {
+  pointer-events: none;
+}
+
 .rectangle {
   position: absolute;
   display: grid;
@@ -37,6 +41,10 @@
   transition: transform 0s;
   color: white;
   gap: 5px;
+}
+
+.rectangle.invisible {
+  display: none;
 }
 
 .square {
@@ -76,10 +84,6 @@
   background: rgb(47, 46, 46);
 }
 
-.invisible {
-  display: none;
-}
-
 .checkMark{
   position: absolute;
   width: 50px;
@@ -102,16 +106,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 250px;
-  width: 350px;
+  min-height: 250px;
+  min-width: 350px;
+  gap: 20px;
+  padding: 30px;
   border: 3px solid black;
   border-radius: 5px;
   pointer-events: none;
+  opacity: 0%;
   transition: transform 0.5s, opacity 0.5s;
 }
 
 .scoreboard.show {
   opacity: 100%;
   pointer-events: all;
-  transform: translateY(120%);
+  transform: translateY(100%);
 }
+
+h1, h2 {
+  margin: 0px;
+}
+
+
+

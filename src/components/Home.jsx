@@ -142,12 +142,12 @@ function Home() {
       <div>Time: {time} seconds</div>
     </div>
 
-    <Scoreboard time={time} gameOver={gameOver}></Scoreboard>
+    <Scoreboard time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
 
     <div className="msgBox">{message}</div>
 
     <div 
-      className='imgDiv'
+      className={gameOver ? 'imgDiv gameOver' : 'imgDiv'}
       onClick={popUpTarget} 
       style={{backgroundImage: `url("${squaresImg}")`}} 
     > 
@@ -169,7 +169,7 @@ function Home() {
       }
       
       <div 
-        className={active ? 'rectangle' : 'rectangle invisible'}
+        className={gameOver ? 'rectangle invisible' : (active ? 'rectangle' : 'rectangle invisible')}
         // ref={rectangle}
         style={{transform: `translateX(${coordX-25}px) translateY(${coordY-25}px)`}}
       >
