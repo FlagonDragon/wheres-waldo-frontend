@@ -67,7 +67,7 @@ function Scoreboard({time, gameOver, handleClick}) {
 
         <form onSubmit={e => e.preventDefault()}>
 
-        <label>Title:
+        <label>Name: {' '}
             <input 
             name="name" 
             type="text"
