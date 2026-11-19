@@ -1,5 +1,6 @@
 import "../styles/styles.css";
 import { useEffect, useState } from 'react';
+import { useLocation } from "react-router";
 import squaresImg from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 import Scoreboard from "./Scoreboard";
@@ -39,6 +40,8 @@ function Game() {
   const [message, setMessage] = useState('Find and select a target');
   const [gameOver, setGameOver] = useState(false);
   const [time, setTime] = useState(0);
+
+  const myPicId = useLocation().state;
 
   useEffect(() => {
 
@@ -81,7 +84,8 @@ function Game() {
     // console.log(e.target);
     // console.log(e.clientX, e.clientY);
     console.log(x, y);
-
+    console.log(myPicId);
+  
     setCoordX(x);
     setCoordY(y);
 
