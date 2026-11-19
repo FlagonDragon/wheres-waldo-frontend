@@ -13,7 +13,7 @@ async function fetchCheck(targetName, coordX, coordY) {
 
     const response = await fetch(`https://wheres-waldo-5irt.onrender.com/check-option`, {
       method: "POST",
-      body: JSON.stringify({ pictureTitle: 'colorSquares', targetName: targetName, coordX: coordX, coordY: coordY }),
+      body: JSON.stringify({ pictureId: 1, targetName: targetName, coordX: coordX, coordY: coordY }),
       headers: {'Content-type': 'application/json'},
     })
 
@@ -41,7 +41,7 @@ function Game() {
   const [gameOver, setGameOver] = useState(false);
   const [time, setTime] = useState(0);
 
-  const myPicId = useLocation().state;
+  const pictureId = useLocation().state;
 
   useEffect(() => {
 
@@ -84,7 +84,7 @@ function Game() {
     // console.log(e.target);
     // console.log(e.clientX, e.clientY);
     console.log(x, y);
-    console.log(myPicId);
+    console.log(pictureId);
   
     setCoordX(x);
     setCoordY(y);
