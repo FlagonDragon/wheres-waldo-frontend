@@ -40,10 +40,8 @@
   left: 0;
 }
 
-.imgDiv {
+.pictureDiv {
   position: relative;
-  height: 500px;
-  width: 745px;
   background-repeat: no-repeat;
   background-size: contain;
   border: 5px solid black;
@@ -52,8 +50,18 @@
   cursor: pointer;
 }
 
-.ImgDiv.gameOver {
+.pictureDiv.gameOver {
   pointer-events: none;
+}
+
+.pic1 {
+  height: 500px;
+  width: 745px;
+}
+
+.pic2 {
+  height: 735.5px;
+  width: 1300px;
 }
 
 .rectangle {

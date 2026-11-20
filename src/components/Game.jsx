@@ -1,7 +1,8 @@
 import "../styles/styles.css";
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router";
-import squaresImg from '../assets/colorSquares.jpg';
+import skiPic from '../assets/waldoSki.jpg'
+import squaresPic from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 import Scoreboard from "./Scoreboard";
 
@@ -154,9 +155,9 @@ function Game() {
     <div className="msgBox">{message}</div>
 
     <div 
-      className={gameOver ? 'imgDiv gameOver' : 'imgDiv'}
+      className={gameOver ? `pictureDiv pic${pictureId} gameOver` : `pictureDiv pic${pictureId}`}
       onClick={popUpTarget} 
-      style={{backgroundImage: `url("${squaresImg}")`}} 
+      style={{backgroundImage: `url("${pictureId == 1 ? squaresPic : skiPic}")`}} 
     > 
 
       {checkMarks.map(checkMark => {
