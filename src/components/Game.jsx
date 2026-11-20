@@ -6,7 +6,37 @@ import squaresPic from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 import Scoreboard from "./Scoreboard";
 
-const startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
+let startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
+
+async function fetchOptions(pictureId) {
+
+  try {
+
+  console.log(pictureId);
+
+  const response = await fetch(`https://wheres-waldo-5irt.onrender.com/picture/${pictureId}`);
+
+  let optionsData = await response.json();
+
+  let options = [];
+
+  optionsData.forEach(option => {
+    
+    options.push(option.name);
+
+  });
+
+  console.log(options);
+  
+  return options;
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
 
 async function fetchCheck(pictureId, targetName, coordX, coordY) {
 
@@ -36,7 +66,7 @@ function Game() {
   const [coordX, setCoordX] = useState(0);
   const [coordY, setCoordY] = useState(0);
   const [active, setActive] = useState(false);
-  const [options, setOptions] = useState(startingOptions);
+  const [options, setOptions] = useState([]);
   const [checkMarks, setCheckMarks] = useState([]);
   const [message, setMessage] = useState('Find and select a target');
   const [gameOver, setGameOver] = useState(false);
@@ -46,8 +76,24 @@ function Game() {
 
   useEffect(() => {
 
-    async function updateTime() {
+    async function startGame() {
 
+      // console.log('running');
+      
+
+      //fetch options once
+
+      if (time == 0) {
+
+      const response = await fetchOptions(pictureId);
+      
+      console.log(response);
+      
+      setOptions(response);
+
+      }
+      
+      // update stopwatch every 1 second with current time
       if (gameOver == false) {
         
         let newTime = time+1;
@@ -61,9 +107,9 @@ function Game() {
 
     }
 
-    updateTime();
+    startGame();
     
-  }, [time, gameOver])
+  }, [pictureId, time, gameOver])
 
   function restartGame() {
     setCoordX(0);
@@ -139,7 +185,7 @@ function Game() {
   }
 
   return (
-  <div className="container">
+  <div className="gameContainer">
 
     <div className="stats">
       <div>Coord X: {coordX}</div>
