@@ -100,6 +100,9 @@ function Game() {
 
         setTimeout(() => setTime(newTime), 1000);
 
+        console.log('newtime is '+newTime);
+        
+
       } else { 
         return 
       }
@@ -157,6 +160,8 @@ function Game() {
       
       if (options[1] == undefined) {
 
+        console.log('GAME IS OVERRRRR');
+        
         setGameOver(true);
         setMessage('You won!');
         
@@ -196,7 +201,7 @@ function Game() {
       <div>Time: {time} seconds</div>
     </div>
 
-    <Scoreboard time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
+    <Scoreboard pictureId={pictureId} time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
 
     <div className="msgBox">{message}</div>
 

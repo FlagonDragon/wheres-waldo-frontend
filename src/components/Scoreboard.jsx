@@ -1,12 +1,10 @@
 import { useState } from "react";
 
-let pictureId = 1;
-
-async function fetchScores() {
+async function fetchScores(pictureId) {
 
     try {
 
-    const response = await fetch(`https://wheres-waldo-5irt.onrender.com/highscore`)
+    const response = await fetch(`https://wheres-waldo-5irt.onrender.com/highscore/${pictureId}`)
 
     let scoresData = await response.json();
 
@@ -47,7 +45,7 @@ async function postScore(name, time, pictureId) {
 }
 
 
-function Scoreboard({time, gameOver, handleClick}) {
+function Scoreboard({pictureId, time, gameOver, handleClick}) {
     const [display, setDisplay] = useState("result");
     const [name, setName] = useState("");
     const [scores, setScores] = useState(null);
@@ -83,7 +81,7 @@ function Scoreboard({time, gameOver, handleClick}) {
                 await postScore(name, time, pictureId)
                 setName("");
                 
-                const data = await fetchScores();
+                const data = await fetchScores(pictureId);
                 const fastestFive = data.slice(0, 5);
                 setScores(fastestFive);
 
