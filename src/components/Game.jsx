@@ -7,27 +7,27 @@ import Scoreboard from "./Scoreboard";
 
 const startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
 
-async function fetchCheck(targetName, coordX, coordY) {
+async function fetchCheck(pictureId, targetName, coordX, coordY) {
 
-    try {
+  try {
 
-    const response = await fetch(`https://wheres-waldo-5irt.onrender.com/check-option`, {
-      method: "POST",
-      body: JSON.stringify({ pictureId: 1, targetName: targetName, coordX: coordX, coordY: coordY }),
-      headers: {'Content-type': 'application/json'},
-    })
+  const response = await fetch(`https://wheres-waldo-5irt.onrender.com/check-option`, {
+    method: "POST",
+    body: JSON.stringify({ pictureId: Number(pictureId), targetName: targetName, coordX: coordX, coordY: coordY }),
+    headers: {'Content-type': 'application/json'},
+  })
 
-    // console.log(targetName, coordX, coordY);
+  // console.log(targetName, coordX, coordY);
 
-    let postsData = await response.json();
+  let postsData = await response.json();
 
-    return postsData;
+  return postsData;
 
-    } catch (error) {
+  } catch (error) {
 
-        console.log(error);
+    console.log(error);
 
-    }
+  }
 
 };
 
@@ -84,7 +84,7 @@ function Game() {
     // console.log(e.target);
     // console.log(e.clientX, e.clientY);
     console.log(x, y);
-    console.log(pictureId);
+    // console.log(pictureId);
   
     setCoordX(x);
     setCoordY(y);
@@ -97,7 +97,10 @@ function Game() {
 
     e.stopPropagation();
 
-    const result = await fetchCheck(option, coordX, coordY);
+    // console.log(pictureId, option, coordX, coordY);
+    
+
+    const result = await fetchCheck(pictureId, option, coordX, coordY);
 
     console.log(result.message);
 

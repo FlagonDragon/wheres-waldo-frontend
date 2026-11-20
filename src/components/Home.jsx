@@ -17,8 +17,8 @@ function Home() {
         className='homePicture'
         style={{backgroundImage: `url("${waldoSki}")`}}
         onClick={() => {
-            console.log('1');
-            navigate(`/game`, {state: '1'});
+            console.log('2');
+            navigate(`/game`, {state: '2'});
         }}
     > 
     </div>
@@ -28,7 +28,7 @@ function Home() {
         style={{backgroundImage: `url("${colorSquares}")`}}
         onClick={() => {
             console.log('1');
-            navigate(`/game`, {state: '2'});
+            navigate(`/game`, {state: '1'});
         }}
     > 
     </div>
