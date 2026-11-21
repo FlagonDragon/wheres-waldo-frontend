@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from "react-router";
 import skiPic from '../assets/waldoSki.jpg'
 import squaresPic from '../assets/colorSquares.jpg';
@@ -68,7 +68,7 @@ function Game() {
   const [message, setMessage] = useState('Find and select a character');
   const [gameOver, setGameOver] = useState(false);
   const [time, setTime] = useState(0);
-  const [timeoutRef, setTimeoutRef] = useState(null);
+  const timeoutRef = useRef(null);
 
   const pictureId = useLocation().state;
 
@@ -93,12 +93,11 @@ function Game() {
         
         let newTime = time+1;
 
-        let myTimeout = setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           console.log(gameOver);
           if (gameOver == false) setTime(newTime);
         }, 1000);
 
-        setTimeoutRef(myTimeout);
         
       } else { 
         return 
@@ -121,7 +120,7 @@ function Game() {
     setMessage('Find and select a character');
     setGameOver(false);
     setTime(0);
-    setTimeoutRef(null);
+    timeoutRef.current = null;
   }
 
   function popUpTarget(e) {
@@ -156,7 +155,7 @@ function Game() {
 
         console.log('GAME IS OVERRRRR');
         
-        clearTimeout(timeoutRef);
+        clearTimeout(timeoutRef.current);
         setGameOver(true);
         setMessage('You won!');
         
@@ -185,14 +184,14 @@ function Game() {
   return (
   <div className="gameContainer">
 
-    {/* <div className="stats">
+    <div className="stats">
       <div>Coord X: {coordX}</div>
       <div>Coord Y: {coordY}</div>
       <div>Options: {options}</div>
       <div>Active: {active ? 'true' : 'false'}</div>
       <div>Checkmarks: {checkMarks}</div>
       <div>Time: {time} seconds</div>
-    </div> */}
+    </div>
 
     <Scoreboard pictureId={pictureId} time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
 
