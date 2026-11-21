@@ -5,6 +5,7 @@ import skiPic from '../assets/waldoSki.jpg'
 import squaresPic from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 import Scoreboard from "./Scoreboard";
+import TargetsRef from "./TargetsRef";
 
 async function fetchOptions(pictureId) {
 
@@ -64,7 +65,7 @@ function Game() {
   const [active, setActive] = useState(false);
   const [options, setOptions] = useState([]);
   const [checkMarks, setCheckMarks] = useState([]);
-  const [message, setMessage] = useState('Find and select a target');
+  const [message, setMessage] = useState('Find and select a character');
   const [gameOver, setGameOver] = useState(false);
   const [time, setTime] = useState(0);
   const [timeoutRef, setTimeoutRef] = useState(null);
@@ -117,7 +118,7 @@ function Game() {
     setActive(false);
     setOptions([]);
     setCheckMarks([]);
-    setMessage('Find and select a target');
+    setMessage('Find and select a character');
     setGameOver(false);
     setTime(0);
     setTimeoutRef(null);
@@ -195,26 +196,7 @@ function Game() {
 
     <Scoreboard pictureId={pictureId} time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
 
-    <div className="targetsContainer">
-      <div className="targetDiv">
-        <div className="targetName">Waldo</div>
-      </div>
-      <div className="targetDiv">
-        <div className="targetName">Wenda</div>
-      </div>
-      <div className="targetDiv">
-        <div className="targetName">Woof</div>
-      </div>
-      <div className="targetDiv">
-        <div className="targetName">Whitebeard</div>
-      </div>
-      <div className="targetDiv">
-        <div className="targetName">Odlaw</div>
-      </div>
-      <div className="targetDiv">
-        <div className="targetName">Sasquatch</div>
-      </div>
-    </div>
+    {pictureId == 2 ? <TargetsRef></TargetsRef> : <div style={{marginTop: '100px'}}></div>}  
 
     <div className="msgBox">{message}</div>
 
@@ -252,10 +234,10 @@ function Game() {
     
     </div>
 
-    <button 
+    {/* <button 
       className="restartBtn"
       onClick={restartGame}
-    >Restart game</button>
+    >Restart game</button> */}
 
   </div>
   )

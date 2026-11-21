@@ -50,15 +50,33 @@ html {
 .targetsContainer {
   display: grid;
   grid-template-columns: repeat(6, 100px);
-  grid-template-rows: 100px;
+  grid-template-rows: 125px;
   margin-top: 30px;
   margin-bottom: 20px;
   background-color: black;
-  border: 5px solid white;
+  border: 0.5px solid white;
 }
 
 .targetDiv {
-  border: 1.5px solid white;
+  display: grid;
+  grid-template-columns: 100px;
+  grid-template-rows: 100px 25px;
+  border: 2px solid white;
+}
+
+.targetImg {
+  border-bottom: 2px solid white;
+  background-size: cover;
+}
+
+.sasquatch {
+  width: 96.5px;
+}
+
+.targetName {
+  /* border: 3px solid greenyellow; */
+  text-align: center;
+  padding-top: 2px;
 }
 
 .msgBox {
@@ -167,6 +185,7 @@ html {
   padding: 30px;
   border: 3px solid black;
   background-color: white;
+  color: black;
   border-radius: 5px;
   pointer-events: none;
   opacity: 0%;
