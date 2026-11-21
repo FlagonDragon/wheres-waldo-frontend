@@ -184,14 +184,14 @@ function Game() {
   return (
   <div className="gameContainer">
 
-    <div className="stats">
+    {/* <div className="stats">
       <div>Coord X: {coordX}</div>
       <div>Coord Y: {coordY}</div>
       <div>Options: {options}</div>
       <div>Active: {active ? 'true' : 'false'}</div>
       <div>Checkmarks: {checkMarks}</div>
       <div>Time: {time} seconds</div>
-    </div>
+    </div> */}
 
     <Scoreboard pictureId={pictureId} time={time} gameOver={gameOver} handleClick={restartGame}></Scoreboard>
 
