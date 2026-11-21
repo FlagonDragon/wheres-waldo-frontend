@@ -6,8 +6,6 @@ import squaresPic from '../assets/colorSquares.jpg';
 import OptionsDiv from './OptionsDiv';
 import Scoreboard from "./Scoreboard";
 
-let startingOptions = ['Pink Square', 'Yellow Square', 'Blue Square', 'Gray Square'];
-
 async function fetchOptions(pictureId) {
 
   try {
@@ -48,8 +46,6 @@ async function fetchCheck(pictureId, targetName, coordX, coordY) {
     headers: {'Content-type': 'application/json'},
   })
 
-  // console.log(targetName, coordX, coordY);
-
   let postsData = await response.json();
 
   return postsData;
@@ -71,15 +67,13 @@ function Game() {
   const [message, setMessage] = useState('Find and select a target');
   const [gameOver, setGameOver] = useState(false);
   const [time, setTime] = useState(0);
+  const [timeoutRef, setTimeoutRef] = useState(null);
 
   const pictureId = useLocation().state;
 
   useEffect(() => {
 
-    async function startGame() {
-
-      // console.log('running');
-      
+    async function startGame() {      
 
       //fetch options once
 
@@ -98,11 +92,13 @@ function Game() {
         
         let newTime = time+1;
 
-        setTimeout(() => setTime(newTime), 1000);
+        let myTimeout = setTimeout(() => {
+          console.log(gameOver);
+          if (gameOver == false) setTime(newTime);
+        }, 1000);
 
-        console.log('newtime is '+newTime);
+        setTimeoutRef(myTimeout);
         
-
       } else { 
         return 
       }
@@ -115,14 +111,16 @@ function Game() {
   }, [pictureId, time, gameOver])
 
   function restartGame() {
+    clearTimeout(timeoutRef);
     setCoordX(0);
     setCoordY(0);
     setActive(false);
-    setOptions(startingOptions);
+    setOptions([]);
     setCheckMarks([]);
     setMessage('Find and select a target');
     setGameOver(false);
     setTime(0);
+    setTimeoutRef(null);
   }
 
   function popUpTarget(e) {
@@ -131,10 +129,7 @@ function Game() {
     let x = e.nativeEvent.offsetX;
     let y = e.nativeEvent.offsetY;    
     
-    // console.log(e.target);
-    // console.log(e.clientX, e.clientY);
     console.log(x, y);
-    // console.log(pictureId);
   
     setCoordX(x);
     setCoordY(y);
@@ -147,9 +142,6 @@ function Game() {
 
     e.stopPropagation();
 
-    // console.log(pictureId, option, coordX, coordY);
-    
-
     const result = await fetchCheck(pictureId, option, coordX, coordY);
 
     console.log(result.message);
@@ -158,10 +150,12 @@ function Game() {
       addCheckMark();
       deleteOption(option);
       
-      if (options[1] == undefined) {
+      //no options[1] available means last target was found in succesful selection but react state hasn't updated yet, which is why we search [1] instead of [0]
+      if (options[1] == undefined) {        
 
         console.log('GAME IS OVERRRRR');
         
+        clearTimeout(timeoutRef);
         setGameOver(true);
         setMessage('You won!');
         
@@ -178,14 +172,12 @@ function Game() {
   function addCheckMark() {
     let newArr = [...checkMarks]
     newArr.push([coordX, coordY])
-    // console.log(Array.isArray(newArr));
     setCheckMarks(newArr);
   }
 
   function deleteOption(option) {
     let newArr = [...options]
     newArr.splice(newArr.indexOf(option), 1);
-    // console.log(newArr);
     setOptions(newArr);
   }
 
@@ -229,7 +221,6 @@ function Game() {
       
       <div 
         className={gameOver ? 'rectangle invisible' : (active ? 'rectangle' : 'rectangle invisible')}
-        // ref={rectangle}
         style={{transform: `translateX(${coordX-25}px) translateY(${coordY-25}px)`}}
       >
         
