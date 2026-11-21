@@ -49,6 +49,7 @@ function Scoreboard({pictureId, time, gameOver, handleClick}) {
     const [display, setDisplay] = useState("result");
     const [name, setName] = useState("");
     const [scores, setScores] = useState(null);
+    const [btnClass, setBtnClass] = useState(null);
     
     return(
     <>
@@ -76,9 +77,14 @@ function Scoreboard({pictureId, time, gameOver, handleClick}) {
 
         <button
             type='submit'
+            className={btnClass}
             onClick={async () => {
 
-                await postScore(name, time, pictureId)
+                setBtnClass('disableBtn');
+                setTimeout(() => setBtnClass(null), 5000);
+                
+                await postScore(name, time, pictureId)                
+
                 setName("");
                 
                 const data = await fetchScores(pictureId);

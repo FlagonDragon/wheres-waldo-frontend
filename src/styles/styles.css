@@ -212,6 +212,10 @@ html {
   border: 1px solid black;
 }
 
+.disableBtn {
+  pointer-events: none;
+}
+
 h1, h2 {
   margin: 0px;
 }
